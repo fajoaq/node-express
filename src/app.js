@@ -8,6 +8,27 @@ app.set('view engine', 'hbs');
 
 app.use(express.static(publicDir));
 
+app.get('', (req, res) => {
+    res.render('index', {
+        title: 'Weather App',
+        name: 'Francis J.'
+    });
+});
+
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: 'About',
+        name: 'Francis J.'
+    });
+});
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        title: 'Help',
+        message: 'Get some help with the app.'
+    });
+});
+
 app.get('/weather', (req, res) => {
     res.send({
         forecast: '90 degrees',

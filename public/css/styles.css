@@ -1,7 +1,30 @@
-h1 {
-    color: red;
+body {
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
-img {
-    width: 100px;
+header {
+    margin-top: 1rem;
+    margin-bottom: 48px;
+}
+
+h1 {
+    font-size: 64px;
+    margin-bottom: 1rem;
+}
+
+header a {
+    color: #888;
+    margin-right: 1rem;
+    text-decoration: none;
+}
+
+footer {
+    color: #888;
+    border-top: thin solid #eee;
+    margin-top: 1rem;
+    padding: 1rem 0;
 }

@@ -4,6 +4,10 @@ body {
     max-width: 650px;
     margin: 0 auto;
     padding: 0 1rem;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
@@ -22,9 +26,17 @@ header a {
     text-decoration: none;
 }
 
+.portrait {
+    width: 150px;
+}
+
 footer {
     color: #888;
     border-top: thin solid #eee;
     margin-top: 1rem;
     padding: 1rem 0;
+}
+
+.main-content {
+    flex-grow: 1;
 }

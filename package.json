@@ -10,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.1",
     "express": "^4.17.1",
     "hbs": "^4.1.2",
-    "request": "^2.88.2"
+    "postman-request": "^2.88.1-postman.30"
   }
 }

@@ -1,4 +1,6 @@
 const express = require('express');
+const geocode = require('../utils/geocode');
+const forecast = require('../utils/forecast');
 const path = require('path');
 const hbs = require('hbs');
 const app = express();
@@ -7,7 +9,6 @@ const app = express();
 const publicDir = path.join(__dirname, '../public');
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
-
 
 //Setup handlerbars engine and views location
 app.set('view engine', 'hbs');
@@ -39,7 +40,8 @@ app.get('/help', (req, res) => {
     });
 });
 
-app.get('/weather', (req, res) => {
+//WEATHER
+app.get('/weather', async (req, res) => {
     const { address } = req.query;
 
     if(!address) {
@@ -47,11 +49,22 @@ app.get('/weather', (req, res) => {
             error: "You must provide a location."
         })
     }
+
+    geocode(address, (error, { latitude, longitude, location } = {}) => {
+        if(error) res.send({ error });
+        else if(location) {
+            forecast(latitude, longitude, (error, forecastData) => {
+                if(error) console.log("Error: ", error);
+                else if(forecastData) res.send({ address, forecast: forecastData });
+            });
+        }
+    });
+
+/*     console.log(data);
     res.send({
         address: address,
-        forecast: "It is raining",
-        temparature: "79 f"
-    });
+        forecast: data
+    }); */
 });
 
 app.get('/help/*', (req, res) => {

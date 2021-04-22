@@ -3,6 +3,7 @@ const geocode = require('../utils/geocode');
 const forecast = require('../utils/forecast');
 const path = require('path');
 const hbs = require('hbs');
+const e = require('express');
 const app = express();
 
 //Define paths for Express config
@@ -17,6 +18,18 @@ hbs.registerPartials(partialsPath);
 
 // Setup static directory to serve
 app.use(express.static(publicDir));
+
+function getForecastByAddress(address, callback) {
+    geocode(address, (error, { latitude, longitude, location } = {}) => {
+        if(error) callback({ error });
+        else if(location) {
+            forecast(latitude, longitude, (error, forecastData) => {
+                if(error) console.log("Error: ", error);
+                else if(forecastData) callback({ address, forecast: forecastData });
+            });
+        }
+    });
+};
 
 app.get('', (req, res) => {
     res.render('index', {
@@ -50,21 +63,10 @@ app.get('/weather', async (req, res) => {
         })
     }
 
-    geocode(address, (error, { latitude, longitude, location } = {}) => {
-        if(error) res.send({ error });
-        else if(location) {
-            forecast(latitude, longitude, (error, forecastData) => {
-                if(error) console.log("Error: ", error);
-                else if(forecastData) res.send({ address, forecast: forecastData });
-            });
-        }
-    });
-
-/*     console.log(data);
-    res.send({
-        address: address,
-        forecast: data
-    }); */
+    getForecastByAddress(address, (data) => {
+        if(data.error) res.send(data.error);
+        else if(data.forecast) res.send(data);
+    })
 });
 
 app.get('/help/*', (req, res) => {

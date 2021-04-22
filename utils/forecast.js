@@ -1,9 +1,9 @@
 const request = require('postman-request');
-const WS_API_KEY = require('../../notes-app/api/weatherstack');
-const chalk = require('chalk');
+const WS_API_KEY = require('../../weather-app/api/weatherstack');
 
 const forecast = (longitude, latitude, callback) => {
-    const url = `http://api.weatherstack.com/current?access_key=${WS_API_KEY}&query=${longitude},${latitude}&units=f`
+    const units = 'f';
+    const url = `http://api.weatherstack.com/current?access_key=${WS_API_KEY}&query=${longitude},${latitude}&units=${units}`
 
     request({ url, json: true }, (error, { body } = {}) => {
         if(error) {
@@ -16,9 +16,7 @@ const forecast = (longitude, latitude, callback) => {
             callback(error, undefined);
         } else {
             const { temperature, feelslike, weather_descriptions } = body.current;
-            const data = `
-            It is currently ${chalk.blue(temperature)} degrees out, ${weather_descriptions[0].toLowerCase()}. 
-            It feels like ${chalk.blue(feelslike)} degrees.`;
+            const data = `It is currently ${temperature}${units} out, ${weather_descriptions[0].toLowerCase()}. It feels like ${feelslike}${units}.`;
 
             callback(undefined, data)
         }

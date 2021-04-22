@@ -40,3 +40,16 @@ footer {
 .main-content {
     flex-grow: 1;
 }
+
+input {
+    border: thin solid #ccc;
+    padding: 8px;
+}
+
+button {
+    cursor: pointer;
+    border: thing solid #888;
+    background: #888;
+    color: white;
+    padding: 8px;   
+}

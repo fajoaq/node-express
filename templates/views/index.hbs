@@ -10,8 +10,21 @@
         <div class="main-content">
             {{>header}}
             <p>Use this site to get your weather.</p>
+
+            <form>
+                <input placeholder="Dallas">
+                <button>Search</button>
+            </form>
+
+            <p class="error_panel">Conduct a search!</p>
+
+            <div class="weather_panel">
+                <p class="location_container"></p>
+                <p class="forecast_container"></p>
+            </div>
         </div>
 
         {{>footer}}
+        <script src="js/app.js"></script>
     </body>
 </html>

@@ -25,7 +25,7 @@ function getForecastByAddress(address, callback) {
         else if(location) {
             forecast(latitude, longitude, (error, forecastData) => {
                 if(error) console.log("Error: ", error);
-                else if(forecastData) callback({ address, forecast: forecastData });
+                else if(forecastData) callback({ address, location, forecast: forecastData });
             });
         }
     });
@@ -64,7 +64,7 @@ app.get('/weather', async (req, res) => {
     }
 
     getForecastByAddress(address, (data) => {
-        if(data.error) res.send(data.error);
+        if(data.error) res.send({ error: data.error});
         else if(data.forecast) res.send(data);
     })
 });

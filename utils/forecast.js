@@ -1,5 +1,5 @@
 const request = require('postman-request');
-const WS_API_KEY = require('../../weather-app/api/weatherstack');
+const WS_API_KEY = require('../api/weatherstack');
 
 const forecast = (longitude, latitude, callback) => {
     const units = 'f';

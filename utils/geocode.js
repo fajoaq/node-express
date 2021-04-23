@@ -1,5 +1,5 @@
 const request = require('postman-request');
-const GEO_API_KEY = require('../../weather-app/api/geocoding');
+const GEO_API_KEY = require('../api/geocoding');
 
 
 const geocode = (address, callback) => {

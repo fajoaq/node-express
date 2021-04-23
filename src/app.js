@@ -1,6 +1,6 @@
 const express = require('express');
-const geocode = process.env.GEOCODE_API_KEY || require('../utils/geocode');
-const forecast = process.env.WEATHERSTACK_API_KEY || require('../utils/forecast');
+const geocode = require('../utils/geocode');
+const forecast = require('../utils/forecast');
 const path = require('path');
 const hbs = require('hbs');
 const e = require('express');

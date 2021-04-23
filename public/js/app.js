@@ -1,7 +1,7 @@
 console.log('Client side javascript loaded');
 
 const fetchWeatherData = (address, callback) => {
-    const url = encodeURI(`http://localhost:3000/weather?address=${address}`);
+    const url = encodeURI(`/weather?address=${address}`);
     try {
         fetch(url).then((response) => {
             try {

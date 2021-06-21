@@ -24,11 +24,18 @@ function getForecastByAddress(address, callback) {
     geocode(address, (error, { latitude, longitude, location } = {}) => {
         if(error) callback({ error });
         else if(location) {
-            forecast(latitude, longitude, (error, forecastData) => {
+            forecast(latitude, longitude, (error, { location, forecastedData}) => {
                 if(error) console.log("Error: ", error);
-                else if(forecastData) callback({ address, location, forecast: forecastData });
+                else if(forecastedData) callback({ location, forecastedData });
             });
         }
+    });
+};
+
+function getForecastByCoords(lat, long, callback) {
+    forecast(lat, long, (error, { location, forecastedData } = {}) => {
+        if(error) console.log("Error: ", error);
+        else if(forecastedData) callback({ location, forecastedData });
     });
 };
 
@@ -66,7 +73,16 @@ app.get('/weather', async (req, res) => {
 
     getForecastByAddress(address, (data) => {
         if(data.error) res.send({ error: data.error});
-        else if(data.forecast) res.send(data);
+        else if(data.forecastedData) res.send(data);
+    })
+});
+//WEATHER BY COORDS
+app.get('/weather/me', async (req, res) => {
+    const { lat, long } = req.query;
+
+    getForecastByCoords(lat, long, (data) => {
+        if(data.error) res.send({ error: data.error});
+        else if(data.forecastedData) res.send(data);
     })
 });
 
